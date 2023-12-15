@@ -1,0 +1,172 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="EVAL.Babalone.View.MainWindow"
+        xmlns:ViewModel="clr-namespace:EVAL.Babalone.ViewModel"
+        Title="Kitolás: The Video Game"
+        ResizeMode="CanMinimize"
+        SizeToContent="WidthAndHeight"
+        HorizontalContentAlignment="Center"
+        VerticalContentAlignment="Center"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <ViewModel:BabaloneViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="Load" Command="{Binding LoadGameCommand}"/>
+                <MenuItem Header="Save" Command="{Binding SaveGameCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Game">
+                <MenuItem Header="Board Size">
+                    <MenuItem Header="Small (3x3)" IsCheckable="True" IsChecked="{Binding IsBoardSizeSmall}"/>
+                    <MenuItem Header="Medium (4x4)" IsCheckable="True" IsChecked="{Binding IsBoardSizeMedium}"/>
+                    <MenuItem Header="Large (6x6)" IsCheckable="True" IsChecked="{Binding IsBoardSizeLarge}"/>
+                </MenuItem>
+                <MenuItem Header="New game" Command="{Binding NewGameCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Cells}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <!--
+                    From docs: "If no value for Rows and Columns are provided,
+                    the UniformGrid will create a square layout based on the total
+                    number of visible items."
+                    -->
+                    <UniformGrid/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Text}"
+                            IsEnabled="{Binding IsActive}"
+                            Command="{Binding OnClick}"
+                            CommandParameter="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=Self}}"
+                            Margin="3,3,3,3"
+                            MinWidth="40"
+                            MinHeight="40"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            VerticalContentAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Grid.IsSharedSizeScope="True"
+                            RenderTransformOrigin="0.5,0.5">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsActive}" Value="False">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                        To="0.85"
+                                                        Duration="0:0:0.1"/>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                        To="0.85"
+                                                        Duration="0:0:0.1"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                        To="1"
+                                                        Duration="0:0:0.1"/>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                        To="1"
+                                                        Duration="0:0:0.1"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.RenderTransform>
+                            <ScaleTransform ScaleX="1"
+                                            ScaleY="1"/>
+                        </Button.RenderTransform>
+                        <Button.Triggers>
+                            <!-- easter egg -->
+                            <EventTrigger RoutedEvent="Button.MouseRightButtonDown">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ColorAnimation
+                                                    BeginTime="0"
+                                                    Duration="0:0:0.2"
+                                                    From="Red" To="Orange"
+                                                    AccelerationRatio="1"
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    />
+                                        <ColorAnimation
+                                                    BeginTime="0:0:0.2"
+                                                    Duration="0:0:0.2"
+                                                    From="Orange" To="Yellow"
+                                                    AccelerationRatio="1"
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    />
+                                        <ColorAnimation
+                                                    BeginTime="0:0:0.4"
+                                                    Duration="0:0:0.2"
+                                                    From="Yellow" To="Green"
+                                                    AccelerationRatio="1"
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    />
+                                        <ColorAnimation
+                                                    BeginTime="0:0:0.6"
+                                                    Duration="0:0:0.2"
+                                                    From="Green" To="Blue"
+                                                    AccelerationRatio="1"
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    />
+                                        <ColorAnimation
+                                                    BeginTime="0:0:0.8"
+                                                    Duration="0:0:0.2"
+                                                    From="Blue" To="Violet"
+                                                    AccelerationRatio="1"
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    />
+                                        <ColorAnimation
+                                                    BeginTime="0:0:1"
+                                                    Duration="0:0:0.2"
+                                                    From="Violet" To="Red"
+                                                    AccelerationRatio="1"
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StatusBar Grid.Row="2">
+            <StatusBarItem DockPanel.Dock="Right" Content="{Binding MaxTurns}" Padding="0,3,3,3"/>
+            <StatusBarItem DockPanel.Dock="Right" Content="/" Padding="0,3,0,3"/>
+            <StatusBarItem DockPanel.Dock="Right" Content="{Binding Turn}" Padding="3,3,0,3"/>
+            <StatusBarItem DockPanel.Dock="Right" Content="Turn: " Padding="0"/>
+            <StatusBarItem Content="Playing: "/>
+            <StatusBarItem Content="{Binding ActivePlayer}" Padding="0,3,0,3"/>
+        </StatusBar>
+    </Grid>
+</Window>
