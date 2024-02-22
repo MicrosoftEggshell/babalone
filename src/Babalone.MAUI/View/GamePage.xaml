@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EVAL.Babalone.View.GamePage"
+             xmlns:viewmodel="clr-namespace:EVAL.Babalone.ViewModel"
+             x:DataType="viewmodel:BabaloneViewModel"
+             Title="Kitolás The Video Game">
+    <StackLayout
+        HorizontalOptions="CenterAndExpand"
+        VerticalOptions="CenterAndExpand">
+        <Grid
+            RowSpacing="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Button
+                Text="New game"
+                Grid.Row="0"
+                HorizontalOptions="Start"
+                Command="{Binding NewGameCommand}"/>
+            <Button
+                Text="Settings"
+                Grid.Row="0"
+                HorizontalOptions="End"
+                Command="{Binding SettingsCommand}"/>
+
+            <Grid
+                Grid.Row="1"
+                BindableLayout.ItemsSource="{Binding Cells}"
+                RowDefinitions="{Binding GameBoardRows}"
+                ColumnDefinitions="{Binding GameBoardColumns}"
+                RowSpacing="3"
+                ColumnSpacing="3"
+            >
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button
+                            x:DataType="viewmodel:BabaloneCell"
+                            Grid.Row="{Binding X}"
+                            Grid.Column="{Binding Y}"
+                            Text="{Binding Text}"
+                            Command="{Binding OnClick}"
+                            CommandParameter="{Binding .}"
+                            IsEnabled="{Binding IsActive}"
+                            WidthRequest="60"
+                            HeightRequest="60"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </Grid>
+
+            <HorizontalStackLayout HorizontalOptions="Start" Grid.Row="2">
+                <Label Text="Playing: " Padding="3,3,0,3" />
+                <Label Text="{Binding ActivePlayer}" Padding="0,3,3,3" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="End" Grid.Row="2">
+                <Label Text="Turn: " Padding="3,3,0,3" />
+                <Label Text="{Binding Turn}" Padding="0,3"/>
+                <Label Text="/" Padding="0,3"/>
+                <Label Text="{Binding MaxTurns}" Padding="0,3,3,3" />
+            </HorizontalStackLayout>
+        </Grid>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EVAL.Babalone.View.SettingsPage"
+             xmlns:viewmodel="clr-namespace:EVAL.Babalone.ViewModel"
+             Title="Settings">
+    <VerticalStackLayout
+        HorizontalOptions="CenterAndExpand"
+        Spacing="3">
+        <Button Command="{Binding SaveGameCommand}" Text="Save game"/>
+        <Button Command="{Binding LoadGameCommand}" Text="Load game"/>
+    
+        <Picker
+            Title="Board size:"
+            HorizontalTextAlignment="Center"
+            ItemsSource="{Binding BoardSizes}"
+            SelectedItem="{Binding BoardSize}"
+            ItemDisplayBinding="{Binding Name}"/>
+    </VerticalStackLayout>
+</ContentPage>
