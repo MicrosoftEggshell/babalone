@@ -11,7 +11,6 @@ namespace EVAL.Babalone
     {
         #region Fields
 
-        private BabaloneViewModel _model = null!;
         private MainWindow _view = null!;
 
         #endregion

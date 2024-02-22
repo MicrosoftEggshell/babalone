@@ -1,4 +1,5 @@
 ﻿using EVAL.Babalone.Persistence;
+using static Babalone.Model.BabaloneCommon;
 
 namespace EVAL.Babalone.Model
 {
@@ -12,7 +13,7 @@ namespace EVAL.Babalone.Model
         /// <summary>
         /// Default width and height of the game board.
         /// </summary>
-        public const int DefaultBoardSize = BabaloneBoardSize.Small;
+        public const int DefaultBoardSize = BabaloneBoardSize.Medium;
 
         #endregion
 
@@ -169,7 +170,7 @@ namespace EVAL.Babalone.Model
                 
 
             // Generate shuffled array of 1D coordinates
-            int[] allCoordsShuffled = BabaloneCommon.ShuffledRange(BoardSize * BoardSize);
+            int[] allCoordsShuffled = ShuffledRange(BoardSize * BoardSize);
 
             foreach (int i in allCoordsShuffled.Take(2 * starterCount))
             {

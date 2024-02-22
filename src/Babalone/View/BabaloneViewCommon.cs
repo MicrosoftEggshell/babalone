@@ -1,5 +1,4 @@
-﻿using EVAL.Babalone.Model;
-using EVAL.Babalone.Persistence;
+﻿using EVAL.Babalone.Persistence;
 
 namespace EVAL.Babalone.View
 {

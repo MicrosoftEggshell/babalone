@@ -10,6 +10,14 @@ namespace EVAL.Babalone.Persistence
         public const int Small = 3;
         public const int Medium = 4;
         public const int Large = 6;
+
+        public static string ToString(int boardSize) => boardSize switch
+        {
+            Small => nameof(Small),
+            Medium => nameof(Medium),
+            Large => nameof(Large),
+            _ => boardSize.ToString()
+        };
     }
 
     /// <summary>

@@ -7,6 +7,7 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>EVAL.Babalone</RootNamespace>
     <StartupObject>EVAL.Babalone.App</StartupObject>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

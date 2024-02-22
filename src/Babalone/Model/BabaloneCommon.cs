@@ -1,9 +1,9 @@
-﻿namespace EVAL.Babalone.Model
+﻿namespace Babalone.Model
 {
     /// <summary>
     /// Generic algorithms used in Babalone.
     /// </summary>
-    static internal class BabaloneCommon
+    public static class BabaloneCommon
     {
         /// <summary>
         /// Generates a shuffled array of numbers from 1 up to
